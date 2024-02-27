@@ -96,18 +96,27 @@
         return [[self.fakeDeviceCapabilities class] supportsMFIAccessoryKey];
     }
 #endif
-
-    // Simulator and USB-C type devices
-    if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator ||
-        self.currentUIDevice.ykf_deviceModel == YKFDeviceModelIPadPro3 ||
-        self.currentUIDevice.ykf_deviceModel == YKFDeviceModelIPadPro4 ||
-        self.currentUIDevice.ykf_deviceModel == YKFDeviceModelIPadAir4) {
+    if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator) {
         return NO;
+    }
+    if ([self supportsMFIOverUSBC]) {
+        return YES;
     }
     if (@available(iOS 10, *)) {
         return [self systemSupportsMFIAccessoryKey];
     }
     return NO;
+}
+
++ (BOOL)supportsMFIOverUSBC {
+#ifdef DEBUG
+    // When this is set by UTs.
+    if (self.fakeDeviceCapabilities) {
+        return [[self.fakeDeviceCapabilities class] supportsMFIOverUSBC];
+    }
+#endif
+
+    return [self deviceIsUSBCEnabled];
 }
 
 #pragma mark - Helpers
@@ -118,6 +127,35 @@
 #else
     return UIDevice.currentDevice;
 #endif
+}
+
++ (BOOL)deviceIsUSBCEnabled {
+    static BOOL ykfDeviceCapabilitiesDeviceIsUSBCEnabled = YES;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        YKFDeviceModel deviceModel = self.currentUIDevice.ykf_deviceModel;
+        ykfDeviceCapabilitiesDeviceIsUSBCEnabled =
+            deviceModel == YKFDeviceModelIPadPro3 ||
+            deviceModel == YKFDeviceModelIPadPro4 ||
+            deviceModel == YKFDeviceModelIPadAir4 ||
+            deviceModel == YKFDeviceModelIPadPro5 ||
+            deviceModel == YKFDeviceModelIPadAir5 ||
+            deviceModel == YKFDeviceModelIPadMini6 ||
+            deviceModel == YKFDeviceModelIPad10 ||
+            deviceModel == YKFDeviceModelIPadPro6 ||
+            deviceModel == YKFDeviceModelIPhone15 ||
+            deviceModel == YKFDeviceModelUnknown; // A newer device which is not in the list yet
+    });
+
+#ifdef DEBUG
+    if (testFakeUIDevice) {
+        // When the UTs run, reset to test different configurations.
+        onceToken = 0;
+    }
+#endif
+
+    return ykfDeviceCapabilitiesDeviceIsUSBCEnabled;
 }
 
 + (BOOL)deviceIsNFCEnabled {

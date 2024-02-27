@@ -62,6 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (class, nonatomic, assign, readonly) BOOL supportsMFIAccessoryKey;
 
+/*!
+ @property supportsMFIOverUSBC
+
+ @abstract
+ Returns YES if the device has a USB-C port compatible with Apple USB-C to Lightning adapter.
+ */
+@property (class, nonatomic, assign, readonly) BOOL supportsMFIOverUSBC;
+
 @end
 
 /*!
