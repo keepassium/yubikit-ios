@@ -23,10 +23,6 @@
 #import "YKFLogger.h"
 #import "YKFAssert.h"
 
-#import "YKFNFCOTPService+Private.h"
-#import "YKFKeyU2FService+Private.h"
-#import "YKFKeyFIDO2Service+Private.h"
-#import "YKFKeyOATHService+Private.h"
 #import "YKFKeyRawCommandService+Private.h"
 #import "YKFNFCTagDescription+Private.h"
 
@@ -36,10 +32,6 @@
 @property (nonatomic, readwrite) NSError *iso7816SessionError;
 
 @property (nonatomic, readwrite) YKFNFCTagDescription *tagDescription API_AVAILABLE(ios(13.0));
-@property (nonatomic, readwrite) YKFNFCOTPService *otpService API_AVAILABLE(ios(11.0));
-@property (nonatomic, readwrite) YKFKeyU2FService *u2fService API_AVAILABLE(ios(13.0));
-@property (nonatomic, readwrite) YKFKeyFIDO2Service *fido2Service API_AVAILABLE(ios(13.0));
-@property (nonatomic, readwrite) YKFKeyOATHService *oathService API_AVAILABLE(ios(13.0));
 @property (nonatomic, readwrite) YKFKeyRawCommandService *rawCommandService API_AVAILABLE(ios(13.0));
 
 @property (nonatomic) id<YKFKeyConnectionControllerProtocol> connectionController;
@@ -58,10 +50,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        if (@available(iOS 11, *)) {
-            // Init with defaults
-            self.otpService = [[YKFNFCOTPService alloc] initWithTokenParser:nil session:nil];
-        }
         [self setupCommunicationQueue];
     }
     return self;
@@ -204,10 +192,7 @@
     
     switch (state) {
         case YKFNFCISO7816SessionStateClosed:
-            self.u2fService = nil;
-            self.fido2Service = nil;
             self.rawCommandService = nil;
-            self.oathService = nil;
             self.connectionController = nil;
             self.tagDescription = nil;
 
@@ -221,10 +206,7 @@
         case YKFNFCISO7816SessionStatePooling:
             self.iso7816SessionError = nil;
 
-            self.u2fService = nil;
-            self.fido2Service = nil;
             self.rawCommandService = nil;
-            self.oathService = nil;
             self.connectionController = nil;
             self.tagDescription = nil;
             [self unobserveIso7816TagAvailability];
@@ -236,9 +218,6 @@
             [self observeIso7816TagAvailability];
             
             self.connectionController = [[YKFNFCConnectionController alloc] initWithNFCTag:tag operationQueue:self.communicationQueue];
-            self.u2fService = [[YKFKeyU2FService alloc] initWithConnectionController:self.connectionController];
-            self.fido2Service = [[YKFKeyFIDO2Service alloc] initWithConnectionController:self.connectionController];
-            self.oathService = [[YKFKeyOATHService alloc] initWithConnectionController:self.connectionController];
             self.rawCommandService = [[YKFKeyRawCommandService alloc] initWithConnectionController:self.connectionController];
             self.tagDescription = [[YKFNFCTagDescription alloc] initWithTag: tag];
             break;

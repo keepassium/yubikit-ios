@@ -15,9 +15,6 @@
 #import <Foundation/Foundation.h>
 #import "YKFAccessoryDescription.h"
 
-#import "YKFKeyU2FService.h"
-#import "YKFKeyFIDO2Service.h"
-#import "YKFKeyOATHService.h"
 #import "YKFKeyRawCommandService.h"
 
 /**
@@ -86,36 +83,6 @@ typedef NS_ENUM(NSUInteger, YKFAccessorySessionState) {
     YES if the key is connected to the device.
  */
 @property (nonatomic, assign, readonly, getter=isKeyConnected) BOOL keyConnected;
-
-/*!
- @property u2fService
- 
- @abstract
-    The shared object to interact with the U2F application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyU2FServiceProtocol> u2fService;
-
-/*!
- @property fido2Service
- 
- @abstract
-    The shared object to interact with the FIDO2 application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyFIDO2ServiceProtocol> fido2Service;
-
-/*!
- @property oathService
- 
- @abstract
-    The shared object to interact with the OATH application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyOATHServiceProtocol> oathService;
 
 /*!
  @property rawCommandService

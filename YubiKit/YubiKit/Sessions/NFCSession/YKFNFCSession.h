@@ -14,10 +14,6 @@
 
 #import <Foundation/Foundation.h>
 #import "YKFNFCTagDescription.h"
-#import "YKFNFCOTPService.h"
-#import "YKFKeyU2FService.h"
-#import "YKFKeyFIDO2Service.h"
-#import "YKFKeyOATHService.h"
 #import "YKFKeyRawCommandService.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -66,46 +62,6 @@ typedef NS_ENUM(NSUInteger, YKFNFCISO7816SessionState) {
     This property becomes available when the tag is discovered and is nil when the tas is lost.
  */
 @property (nonatomic, readonly, nullable) YKFNFCTagDescription *tagDescription API_AVAILABLE(ios(13.0));
-
-
-/*!
- @property otpService
- 
- @abstract
-    The shared object to interact with the OTP application from the YubiKey. This property is
-    always available and handles its own NFC NDEF session.
- */
-@property (nonatomic, readonly) id<YKFNFCOTPServiceProtocol> otpService API_AVAILABLE(ios(11.0));
-
-/*!
- @property u2fService
- 
- @abstract
-    The shared object to interact with the U2F application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyU2FServiceProtocol> u2fService API_AVAILABLE(ios(13.0));
-
-/*!
- @property fido2Service
- 
- @abstract
-    The shared object to interact with the FIDO2 application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyFIDO2ServiceProtocol> fido2Service API_AVAILABLE(ios(13.0));
-
-/*!
- @property oathService
- 
- @abstract
-    The shared object to interact with the OATH application from the YubiKey.
-    This property becomes available when the key is connected and the session opened and is nil when
-    the session is closed. This property should be accessed based on the session state.
- */
-@property (nonatomic, readonly, nullable) id<YKFKeyOATHServiceProtocol> oathService API_AVAILABLE(ios(13.0));
 
 /*!
  @property rawCommandService

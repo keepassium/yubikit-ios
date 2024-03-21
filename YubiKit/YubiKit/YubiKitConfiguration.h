@@ -14,10 +14,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YKFOTPURIParserProtocol.h"
-#import "YKFOTPTextParserProtocol.h"
-
-
 /*!
  @class YubiKitConfiguration
  
@@ -29,33 +25,6 @@
     To configure YubiKit using YubiKitConfiguration, access the shared instance from YubiKitManager.
  */
 @interface YubiKitConfiguration : NSObject
-
-/*!
- @property customOTPURIParser
- 
- @abstract
-    Custom parser privided by the host application when the used YubiKeys have a custom
-    way of formatting the URI.
- 
- NOTE:
-    This parser instance is used when the NDEF is configured as URI by the configuration tool. The default
-    configuration for the YubiKey is URI. If no changes have been made to the NDEF payload format by configuring
-    the YubiKey, this should be left empty and rely on the default parser provided by YubiKit.
- */
-@property (class, nonatomic, nullable) id<YKFOTPURIParserProtocol> customOTPURIParser;
-
-/*!
- @property customOTPTextParser
- 
- @abstract
-    Custom parser privided by the host applicatiopn when the used YubiKeys have a custom way of formatting the Text.
- 
- NOTE:
-    This parser instance is used when the NDEF is configured as Text by the configuration tool. This is not
-    the default configuration for the YubiKey. If no changes have been made to the NDEF payload format by configuring
-    the YubiKey, this should be left empty and rely on the default parser provided by YubiKit.
- */
-@property (class, nonatomic, nullable) id<YKFOTPTextParserProtocol> customOTPTextParser;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 

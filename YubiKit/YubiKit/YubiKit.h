@@ -18,14 +18,9 @@
 #import "YubiKitExternalLocalization.h"
 #import "YubiKitDeviceCapabilities.h"
 
-#import "YKFOTPTextParserProtocol.h"
-#import "YKFOTPURIParserProtocol.h"
-#import "YKFOTPToken.h"
-
 #import "YKFQRReaderSession.h"
 #import "YKFQRCodeScanError.h"
 #import "YKFNFCSession.h"
-#import "YKFNFCOTPService.h"
 #import "YKFNFCError.h"
 #import "YKFNFCTagDescription.h"
 
@@ -33,46 +28,12 @@
 #import "YKFAccessoryDescription.h"
 
 #import "YKFKeySessionError.h"
-#import "YKFKeyFIDO2Error.h"
-#import "YKFKeyU2FError.h"
-#import "YKFKeyOATHError.h"
 #import "YKFKeyAPDUError.h"
 
-#import "YKFKeyU2FService.h"
-#import "YKFKeyFIDO2Service.h"
-#import "YKFKeyOATHService.h"
 #import "YKFKeyRawCommandService.h"
-#import "YKFKeyChallengeResponseService.h"
-#import "YKFKeyMGMTService.h"
 
 #import "YKFSlot.h"
-
-#import "YKFKeyFIDO2Request.h"
-#import "YKFKeyFIDO2MakeCredentialRequest.h"
-#import "YKFKeyFIDO2GetAssertionRequest.h"
-#import "YKFKeyFIDO2VerifyPinRequest.h"
-#import "YKFKeyFIDO2SetPinRequest.h"
-#import "YKFKeyFIDO2ChangePinRequest.h"
 
 #import "YKFPCSC.h"
 
 #import "YKFNSDataAdditions.h"
-#import "YKFWebAuthnClientData.h"
-
-#import "YKFKeyOATHCalculateAllRequest.h"
-#import "YKFKeyOATHCalculateAllRequest.h"
-#import "YKFKeyOATHCalculateAllResponse.h"
-#import "YKFKeyOATHCalculateAllResponse.h"
-#import "YKFKeyOATHCalculateRequest.h"
-#import "YKFKeyOATHCalculateResponse.h"
-#import "YKFKeyOATHDeleteRequest.h"
-#import "YKFKeyOATHListRequest.h"
-#import "YKFKeyOATHListResponse.h"
-#import "YKFKeyOATHPutRequest.h"
-#import "YKFKeyOATHRenameRequest.h"
-#import "YKFKeyOATHResetRequest.h"
-#import "YKFKeyOATHSelectApplicationResponse.h"
-#import "YKFKeyOATHSelectApplicationResponse.h"
-#import "YKFKeyOATHSetCodeRequest.h"
-#import "YKFKeyOATHValidateRequest.h"
-#import "YKFKeyOATHValidateResponse.h"

@@ -16,22 +16,4 @@
 
 @implementation YubiKitConfiguration
 
-static id<YKFOTPURIParserProtocol> internalCustomOTPURIParser = nil;
-
-+ (id<YKFOTPURIParserProtocol>)customOTPURIParser {
-    return internalCustomOTPURIParser;
-}
-+ (void)setCustomOTPURIParser:(id<YKFOTPURIParserProtocol>)parser {
-    internalCustomOTPURIParser = parser;
-}
-
-static id<YKFOTPTextParserProtocol> internalCustomOTPTextParser = nil;
-
-+ (id<YKFOTPTextParserProtocol>)customOTPTextParser {
-    return internalCustomOTPTextParser;
-}
-+ (void)setCustomOTPTextParser:(id<YKFOTPTextParserProtocol>)parser {
-    internalCustomOTPTextParser = parser;
-}
-
 @end

@@ -31,9 +31,6 @@
 #import "YKFAssert.h"
 
 #import "YKFKeyRawCommandService+Private.h"
-#import "YKFKeyOATHService+Private.h"
-#import "YKFKeyU2FService+Private.h"
-#import "YKFKeyFIDO2Service+Private.h"
 #import "YKFKeyService+Private.h"
 #import "YKFAccessoryDescription+Private.h"
 
@@ -76,9 +73,6 @@ static NSTimeInterval const YubiAccessorySessionStreamOpenDelay = 0.2; // second
 
 @property (nonatomic, assign, readwrite) YKFAccessorySessionState sessionState;
 
-@property (nonatomic, readwrite) id<YKFKeyU2FServiceProtocol, YKFKeyServiceDelegate> u2fService;
-@property (nonatomic, readwrite) id<YKFKeyFIDO2ServiceProtocol, YKFKeyServiceDelegate> fido2Service;
-@property (nonatomic, readwrite) id<YKFKeyOATHServiceProtocol, YKFKeyServiceDelegate> oathService;
 @property (nonatomic, readwrite) id<YKFKeyRawCommandServiceProtocol, YKFKeyServiceDelegate> rawCommandService;
 
 // Observation
@@ -436,17 +430,6 @@ static NSTimeInterval const YubiAccessorySessionStreamOpenDelay = 0.2; // second
          Setup services after the connection is created
          */
         
-        YKFKeyU2FService *u2fService = [[YKFKeyU2FService alloc] initWithConnectionController:self.connectionController];
-        u2fService.delegate = self;
-        self.u2fService = u2fService;
-        
-        YKFKeyFIDO2Service *fido2Service = [[YKFKeyFIDO2Service alloc] initWithConnectionController:self.connectionController];
-        fido2Service.delegate = self;
-        self.fido2Service = fido2Service;
-        
-        YKFKeyOATHService *oathService = [[YKFKeyOATHService alloc] initWithConnectionController:self.connectionController];
-        oathService.delegate = self;
-        self.oathService = oathService;
         
         YKFKeyRawCommandService *rawCommandService = [[YKFKeyRawCommandService alloc] initWithConnectionController:self.connectionController];
         rawCommandService.delegate = self;
@@ -474,9 +457,6 @@ static NSTimeInterval const YubiAccessorySessionStreamOpenDelay = 0.2; // second
         ykf_safe_strong_self();
         
         // Clean services first
-        strongSelf.u2fService = nil;
-        strongSelf.fido2Service = nil;
-        strongSelf.oathService = nil;
         strongSelf.rawCommandService = nil;
         
         strongSelf.connectionController = nil;
@@ -523,9 +503,6 @@ static NSTimeInterval const YubiAccessorySessionStreamOpenDelay = 0.2; // second
 #pragma mark - YKFKeyServiceDelegate
 
 - (void)keyService:(YKFKeyService *)service willExecuteRequest:(YKFKeyRequest *)request {
-    [self.u2fService keyService:service willExecuteRequest:request];
-    [self.fido2Service keyService:service willExecuteRequest:request];
-    [self.oathService keyService:service willExecuteRequest:request];
     [self.rawCommandService keyService:service willExecuteRequest:request];
 }
 

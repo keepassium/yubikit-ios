@@ -19,7 +19,6 @@
 #import "UIDevice+Testing.h"
 
 #import "YubiKitDeviceCapabilities.h"
-#import "YubiKitDeviceCapabilities+Testing.h"
 
 @interface YubiKitDeviceCapabilities()
 
@@ -30,13 +29,6 @@
 @implementation YubiKitDeviceCapabilities
 
 + (BOOL)supportsQRCodeScanning {
-#ifdef DEBUG
-    // When this is set by UTs.
-    if (self.fakeDeviceCapabilities) {
-        return [[self.fakeDeviceCapabilities class] supportsQRCodeScanning];
-    }
-#endif
-    
     if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator) {
         return NO;
     }
@@ -48,13 +40,6 @@
 }
 
 + (BOOL)supportsNFCScanning {
-#ifdef DEBUG
-    // When this is set by UTs.
-    if (self.fakeDeviceCapabilities) {
-        return [[self.fakeDeviceCapabilities class] supportsNFCScanning];
-    }
-#endif
-    
     if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator) {
         return NO;
     }
@@ -69,13 +54,6 @@
 }
 
 + (BOOL)supportsISO7816NFCTags {
-#ifdef DEBUG
-    // When this is set by UTs.
-    if (self.fakeDeviceCapabilities) {
-        return [[self.fakeDeviceCapabilities class] supportsISO7816NFCTags];
-    }
-#endif
-    
     if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator) {
         return NO;
     }
@@ -90,12 +68,6 @@
 }
 
 + (BOOL)supportsMFIAccessoryKey {
-#ifdef DEBUG
-    // When this is set by UTs.
-    if (self.fakeDeviceCapabilities) {
-        return [[self.fakeDeviceCapabilities class] supportsMFIAccessoryKey];
-    }
-#endif
     if (self.currentUIDevice.ykf_deviceModel == YKFDeviceModelSimulator) {
         return NO;
     }
@@ -109,24 +81,13 @@
 }
 
 + (BOOL)supportsMFIOverUSBC {
-#ifdef DEBUG
-    // When this is set by UTs.
-    if (self.fakeDeviceCapabilities) {
-        return [[self.fakeDeviceCapabilities class] supportsMFIOverUSBC];
-    }
-#endif
-
     return [self deviceIsUSBCEnabled];
 }
 
 #pragma mark - Helpers
 
 + (id<YKFUIDeviceProtocol>)currentUIDevice {
-#ifdef DEBUG
-    return testFakeUIDevice ? testFakeUIDevice : UIDevice.currentDevice;
-#else
     return UIDevice.currentDevice;
-#endif
 }
 
 + (BOOL)deviceIsUSBCEnabled {
@@ -147,13 +108,6 @@
             deviceModel == YKFDeviceModelIPhone15 ||
             deviceModel == YKFDeviceModelUnknown; // A newer device which is not in the list yet
     });
-
-#ifdef DEBUG
-    if (testFakeUIDevice) {
-        // When the UTs run, reset to test different configurations.
-        onceToken = 0;
-    }
-#endif
 
     return ykfDeviceCapabilitiesDeviceIsUSBCEnabled;
 }
@@ -178,14 +132,7 @@
             deviceModel == YKFDeviceModelIPhone15 ||
             deviceModel == YKFDeviceModelUnknown; // A newer device which is not in the list yet
     });
-    
-#ifdef DEBUG
-    if (testFakeUIDevice) {
-        // When the UTs run, reset to test different configurations.
-        onceToken = 0;
-    }
-#endif
-    
+
     return ykfDeviceCapabilitiesDeviceIsNFCEnabled;
 }
 
@@ -204,41 +151,8 @@
             ykfDeviceCapabilitiesSystemSupportsMFIAccessoryKey = YES;
         }
     });
-    
-#ifdef DEBUG
-    if (testFakeUIDevice) {
-        // When the UTs run, reset to test different configurations.
-        onceToken = 0;
-    }
-#endif
-    
+
     return ykfDeviceCapabilitiesSystemSupportsMFIAccessoryKey;
 }
-
-#pragma mark - Testing additions
-
-#ifdef DEBUG
-
-static id<YKFUIDeviceProtocol> testFakeUIDevice;
-
-+ (void)setFakeUIDevice:(id<YKFUIDeviceProtocol>)fakeUIDevice {
-    testFakeUIDevice = fakeUIDevice;
-}
-
-+ (id<YKFUIDeviceProtocol>)fakeUIDevice {
-    return testFakeUIDevice;
-}
-
-static id<YubiKitDeviceCapabilitiesProtocol> testFakeDeviceCapabilities;
-
-+ (void)setFakeDeviceCapabilities:(id<YubiKitDeviceCapabilitiesProtocol>)fakeDeviceCapabilities {
-    testFakeDeviceCapabilities = fakeDeviceCapabilities;
-}
-
-+ (id<YubiKitDeviceCapabilitiesProtocol>)fakeDeviceCapabilities {
-    return testFakeDeviceCapabilities;
-}
-
-#endif
 
 @end

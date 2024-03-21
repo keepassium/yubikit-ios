@@ -1,1 +1,0 @@
-..//YubiKitDeviceCapabilities+Testing.h

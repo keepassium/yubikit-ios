@@ -18,10 +18,6 @@ let package = Package(
         .target(
             name: "YubiKit",
             path: "YubiKit/YubiKit",
-            publicHeadersPath: "SPMHeaderLinks"),
-        .testTarget(
-            name: "YubikitTests",
-            dependencies: ["YubiKit"],
-            path: "Yubikit/YubiKitTests"),
+            publicHeadersPath: "SPMHeaderLinks")
     ]
 )
