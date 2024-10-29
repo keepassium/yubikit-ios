@@ -58,7 +58,7 @@
 		958D0B68215D10F200942CB9 /* YKFKeyService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 958D0B62215D106F00942CB9 /* YKFKeyService.h */; };
 		95B58B8B229C03AE00199F8E /* YKFAccessorySession+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B58B8A229C03AE00199F8E /* YKFAccessorySession+Debugging.m */; };
 		95C29617206247210091318B /* YubiKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95C29614206247210091318B /* YubiKit.h */; };
-		95C2961F206247450091318B /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C2961E206247450091318B /* CoreNFC.framework */; };
+		95C2961F206247450091318B /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C2961E206247450091318B /* CoreNFC.framework */; platformFilter = ios; };
 		95C29628206250820091318B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C29627206250820091318B /* AVFoundation.framework */; };
 		95C2962C206250D90091318B /* YKFPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C2962B206250D90091318B /* YKFPermissions.m */; };
 		95C29632206256120091318B /* YKFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C29631206256120091318B /* YKFLogger.m */; };
